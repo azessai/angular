@@ -6,18 +6,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  isAuth: boolean = false;
+  isAuth = false;
+  appareils = [  {name: 'TV', status: 'éteint'},
+                {name: 'Machine à laver', status: 'allumé'},
+                {name: 'Machine à coudre', status: 'allumé'},
+                {name: 'Micro ondes', status: 'éteint'},
+                {name: 'Lave vessel', status: 'allumé'}
+              ];
 
-  appareilOne: string = 'TV';
-  appareilTwo: string = 'Machine à laver';
-  appareilthree: string = 'Four';
-
-  constructor(){
+  constructor() {
     setTimeout(() => {
       this.isAuth = true;
     }, 3000);
   }
-  allumerTous(){
+  allumerTous() {
     console.log('Alluler tous');
   }
 }
