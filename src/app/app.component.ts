@@ -36,5 +36,8 @@ export class AppComponent {
   }
   allumerTous() {
     console.log('Alluler tous');
+    this.appareils.forEach(appareil => {
+      appareil.status = 'allumé';
+    });
   }
 }
