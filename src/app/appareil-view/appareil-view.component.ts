@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Promise, reject } from 'q';
 import { AppareilService } from './../services/appareil.service';
+import { Subscription } from 'rxjs/Subscription';
+import { map } from 'rxjs-compat/operators/map';
 
 @Component({
   selector: 'app-appareil-view',
@@ -22,6 +24,7 @@ export class AppareilViewComponent implements OnInit {
   )
 
   appareils: any[];
+  appareilSubscription: Subscription;
 
   constructor( private appareilService: AppareilService) {
     setTimeout(() => {
@@ -29,7 +32,19 @@ export class AppareilViewComponent implements OnInit {
     }, 3000);
   }
   ngOnInit() {
-    this.appareils = this.appareilService.appareils;
+    this.appareilSubscription = this.appareilService.appreilSubject.subscribe(
+      (appareils: any[]) => {
+        this.appareils = appareils;
+      }
+    );
+    // .pipe(
+    //   map(
+    //     (appareils: any[]) => appareils.filter(
+    //       (appareil: any) => appareil.status !== 'allumé'
+    //     )
+    //   )
+    // )
+    this.appareilService.emitAppareilSubject();
   }
 
   onAllumer() {
